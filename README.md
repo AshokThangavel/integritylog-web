@@ -18,8 +18,8 @@ $ docker-compose build
 ```
 $ docker-compose up -d
 ```
-http://server:port/webapplication/Samples.Integrity.Log.cls
-http://localhost:52773/csp/healthshare/irismydev/Samples.Integrity.Log.cls
+http://server:port/webapplication/ZPMModules.IntegrityLog.Log.cls
+http://localhost:52773/csp/user/ZPMModules.IntegrityLog.Log.cls
 
 Run the web csp page to get integrity log in web based application
 ![image](https://github.com/AshokThangavel/IntegrityLog-Web/assets/58914152/8d5d9de4-325c-4adb-aa15-35ce974434e9)
