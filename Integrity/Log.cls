@@ -1,5 +1,6 @@
-Class ZPMModules.IntegrityLog.Log Extends %CSP.Page [ ProcedureBlock ]
+Class Integrity.Log Extends %CSP.Page
 {
+
 Parameter Title As STRING [ Final ] = "Integrity Log";
 
 Parameter APPLICATION As STRING = "Integrity Log";
@@ -144,8 +145,8 @@ XData Style
 ClassMethod GetIntergityFiles()
 {
 	#dim response As %DynamicArray = []
-	Set dir = ##class(%Library.File).NormalizeDirectory($SYSTEM.Util.ManagerDirectory())
-	If ##class(%File).Exists(dir_"integ.txt") {
+	Set dir = ##class(%Library.File).NormalizeFilename($SYSTEM.Util.ManagerDirectory()_"/integ.txt")
+	If ##class(%File).Exists(dir) {
 		Do response.%Push({"fileName": "integ.txt"})
 	}
     Set wildcard = "INTEGRIT-*.LOG"
@@ -357,4 +358,5 @@ ClassMethod Scripts()
     </script>
 	>
 }
+
 }
