@@ -30,7 +30,7 @@ ClassMethod OnPageHEAD() As %Boolean
 {
 	Write "<head>",!
 	Write "<meta charset=""UTF-8"">"
-	write "<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">"
+	Write "<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">"
 	Write "<link rel=""shortcut icon"" href=""portal/ISC_IRIS_icon.ico"">"
 	Write !,"<title>"_..#Title_"</title>",!
 	Write " <link rel=""stylesheet"" href=""https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"">",!
@@ -125,7 +125,7 @@ ClassMethod ShowIntegrityLogs() As %Status
 
 ClassMethod LoadCSS()
 {
-	Set obj = ##class(%Dictionary.CompiledXData).%OpenId($Classname()_"||Style")
+	Set obj = ##class(%Dictionary.CompiledXData).%OpenId($ClassName()_"||Style")
 	Return:(obj = "") $$$OK
 	Set xdata = obj.Data
 	Set status = ##class(%XML.TextReader).ParseStream(xdata, .textreader)
@@ -145,13 +145,13 @@ XData Style
 ClassMethod GetIntergityFiles()
 {
 	#dim response As %DynamicArray = []
-	Set dir = ##class(%Library.File).NormalizeFilename($SYSTEM.Util.ManagerDirectory()_"/integ.txt")
+	Set dir = ##class(%Library.File).NormalizeFilename($System.Util.ManagerDirectory()_"/integ.txt")
 	If ##class(%File).Exists(dir) {
 		Do response.%Push({"fileName": "integ.txt"})
 	}
     Set wildcard = "INTEGRIT-*.LOG"
 	Set tResult = ##class(%File).FileSetFunc(dir,wildcard)
-	while tResult.%Next(){
+	While tResult.%Next(){
 		Do response.%Push({"fileName": (tResult.ItemName)})
 	}
 	Return response.%ToJSON()
@@ -161,22 +161,22 @@ ClassMethod fileDetailsData(pFileName = "") As %String
 {
 	#dim response As %DynamicArray = []
 
-	set file = ##class(%Library.File).NormalizeDirectory($SYSTEM.Util.ManagerDirectory())_pFileName
-	set stream = ##class(%Stream.FileCharacter).%New()
+	Set file = ##class(%Library.File).NormalizeDirectory($System.Util.ManagerDirectory())_pFileName
+	Set stream = ##class(%Stream.FileCharacter).%New()
  	Do stream.LinkToFile( file)
  	Set data =""
 	While 'stream.AtEnd {
- 		set line = stream.ReadLine()
- 		if line["Directory:" {
-	 		Set cdir = $P(line,"Directory: ",2)
+ 		Set line = stream.ReadLine()
+ 		If line["Directory:" {
+	 		Set cdir = $Piece(line,"Directory: ",2)
  		}
- 		if line["Global:" {
-	 		set cgbl=$P($P(line,": ",2)," ")
-	 		set data=$P($P(line,": ",2)," ",2,*)
+ 		If line["Global:" {
+	 		Set cgbl=$Piece($Piece(line,": ",2)," ")
+	 		Set data=$Piece($Piece(line,": ",2)," ",2,*)
  		}
- 		else {
-	 		set data=data_$C(13,10)_line
-	 		if line["Elapsed Time" {
+ 		Else {
+	 		Set data=data_$Char(13,10)_line
+	 		If line["Elapsed Time" {
 		 		//set %gbl(cdir,cgbl)=data
 
 		 		Set json = {
@@ -184,12 +184,12 @@ ClassMethod fileDetailsData(pFileName = "") As %String
 			 		"global":(..EscapeHTML(cgbl)),
 			 		"details":(data)
 		 		}
-		 		set (data,cgbl)=""
+		 		Set (data,cgbl)=""
 		 		Do response.%Push(json)
 	 		}
  		}
 	}
-	return response.%ToJSON()
+	Return response.%ToJSON()
 }
 
 ClassMethod Scripts()
