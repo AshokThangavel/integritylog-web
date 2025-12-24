@@ -5,7 +5,7 @@
       <Name>intergitylog-web</Name>
       <ExternalName>intergitylog-web</ExternalName>
       <Description>View the Intergity Logs details via Web Module</Description>
-      <Version>1.0.1</Version>
+      <Version>1.0.2</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="Integrity.PKG"/>
